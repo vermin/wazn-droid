@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">WAZN Droid</string>
+    <string name="navigation_drawer_open">Open Navigation Drawer</string>
+    <string name="navigation_drawer_close">Close Navigation Drawer</string>
+    <string name="mining_pool_address">Mining Pool Address</string>
+    <string name="username">Wallet Address:</string>
+    <string name="cmdline">Cmdline</string>
+    <string name="start">Start</string>
+    <string name="help">Help</string>
+    <string name="cmd">Cmd</string>
+    <string name="stop">Stop</string>
+    <string name="log">Log</string>
+    <string name="black_mode">Silent Mode</string>
+    <string name="threads">Threads</string>
+    <string name="max_cpu_usage">Max CPU</string>
+    <string name="percent">%</string>
+    <string name="hpers">H/s</string>
+    <string name="accepted">accepted shares</string>
+    <string name="cpus">Cores</string>
+    <string name="use_worker_id">add worker id</string>
+    <string name="urltext">wazn.io</string>
+    <string name="viewstats">View stats at:</string>
+    <string name="buildString">WAZN Android Miner\nBuild: v1.0.0 (21/03/2020)</string>
+    <string name="createWallet">First, you will need to get your own WAZN private address for receiving and sending WAZN. This will be the wallet where your mined WAZN will be sent to. You should download the WAZN GUI Wallet from https://wazn.io/#downloads. After you have made a setup of your personal wallet, simply enter your WAZN wallet address (starting with Waznxxxxxx) into the field (replacing the current text). Adjust your settings. We recommend a setting of 50% Max CPU Usage. Click “Start” in Miner window of this app.\n\nCongratulations! You’re now mining WAZN off of your Android device, powering transactions by others, and being rewarded with WAZN. You may check your stats under the Stats page.\n\nWhy does the app slow down when the screen is off or when I am using other apps? WAZN Android Miner should not slow down or stop when using other apps. If it does, you may have to disable power saving.</string>
+    <string name="abouttText">WAZN Android Miner is an open source miner for Android devices, allowing you to mine WAZN on the WAZN Project network. Running this software will consume an optional amount of your CPU. Running your CPU at a high setting for a prolonged duration may result in negative effects such as: battery drainage, slow response time, overheating, and may cause permanent damage to your device. We recommend only using this software on low settings (below 50% of your threads and below 50%% CPU Usage). By using this application, you assume full responsibility for any potential damage that may be caused to your device by usage of WAZN Android Miner.</string>
+    <string name="aboutMining">WAZN mining is the process of adding transaction records to the WAZN private ledger of past transactions. This ledger of past transactions is called the blockchain. The blockchain serves to confirm transactions to the rest of the network as they happened. By mining blocks on the WAZN network, you help power transactions, while being rewarded a reward based on the amount of shares your computer submits.</string>
+    <string-array name="threadNumbers">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
+    <string-array name="cpuPercent">
+        <item>25</item>
+        <item>50</item>
+        <item>75</item>
+        <item>100</item>
+    </string-array>
+</resources>

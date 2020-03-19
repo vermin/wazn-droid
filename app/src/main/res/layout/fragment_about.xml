@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/release"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="15dp"
+        android:text="@string/buildString"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/aboutText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/release"
+        android:gravity="center_horizontal"
+        android:paddingLeft="15dp"
+        android:paddingTop="5dp"
+        android:paddingRight="15dp"
+        android:text="@string/abouttText"
+        android:textColor="#323232"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/miningTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/aboutText"
+        android:gravity="center"
+        android:paddingTop="15dp"
+        android:text="What is Mining?"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/aboutMining"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/miningTitle"
+        android:fontFamily="sans-serif"
+        android:gravity="center_horizontal"
+        android:paddingLeft="15dp"
+        android:paddingTop="5dp"
+        android:paddingRight="15dp"
+        android:text="@string/aboutMining"
+        android:textColor="#323232"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/theURL"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/aboutMining"
+        android:layout_centerInParent="true"
+        android:autoLink="web"
+        android:gravity="center_horizontal"
+        android:paddingTop="15dp"
+        android:paddingBottom="10dp"
+        android:text="https://github.com/project-wazn/wazn-droid"
+        android:textColor="@color/colorPrimary"
+        android:textColorLink="#006838"
+        android:textSize="14sp" />
+
+</RelativeLayout>

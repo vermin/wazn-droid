@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/goStats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:gravity="center"
+        android:paddingTop="15dp"
+        android:text="@string/viewstats"
+        android:textColor="#339933"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/goStats2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/goStats"
+        android:autoLink="web"
+        android:gravity="center"
+        android:paddingTop="25dp"
+        android:text="pool.wazn.io"
+        android:textColor="#323232"
+        android:textColorHighlight="@color/colorPrimaryDark"
+        android:textColorHint="#323232"
+        android:textColorLink="@color/colorPrimaryDark"
+        android:textSize="18sp" />
+
+
+    <ScrollView
+        android:id="@+id/scrolly"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/goStats2">
+
+        <TextView
+            android:id="@+id/fetchdata"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="25dp"
+            android:paddingTop="25dp"
+            android:paddingRight="25dp"
+
+            android:textColor="#323232"
+            android:textColorHint="#323232"
+            android:textSize="14sp" />
+
+
+    </ScrollView>
+
+
+</RelativeLayout>
