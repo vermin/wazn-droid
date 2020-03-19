@@ -5,7 +5,7 @@ WAZN Android Miner
 
 Optimized android miner running on a blockchain created for WAZN Project.
 
-<img src="https://wazn.io/downloads/img/wazndroid_miner.png" width="320" >						<img src="https://wazn.io/downloads/img/wazndroid_settings.png" style="float:right width="320" >
+<img src="https://wazn.io/downloads/img/wazndroid_miner.png" style="float:left;width:360px;height:640px;"> <img src="https://wazn.io/downloads/img/wazndroid_settings.png" style="float:right;width:360px;height:640px;">
 
 ## Usage
 
