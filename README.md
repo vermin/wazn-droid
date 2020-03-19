@@ -5,6 +5,8 @@ WAZN Android Miner
 
 Optimized android miner running on a blockchain created for WAZN Project.
 
+<img src="https://wazn.io/downloads/img/wazndroid_miner.png" width="360" > <img src="https://my.wazn.io/assets/img/wazndroid_settings.png" width="360" >
+
 ## Usage
 
 Miner application will work on devices with ARM64 architecture.
