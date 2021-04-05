@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="@color/bg_body">
+
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:layout_marginTop="15dp"
+		android:layout_marginStart="15dp"
+		android:layout_marginEnd="15dp"
+		android:layout_marginBottom="15dp">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:gravity="start"
+				android:text="@string/walletaddress2"
+				android:textColor="@color/txt_headline"
+				android:textSize="16sp"
+				android:textStyle="bold" />
+
+			<Space
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1" />
+
+			<Button
+				android:id="@+id/btnMineuPlexa"
+				android:layout_width="24dp"
+				android:layout_height="24dp"
+				android:backgroundTint="@android:color/transparent"
+				android:layout_gravity="center_vertical"
+				app:cornerRadius="5dp"
+				app:icon="@drawable/ic_star"
+				app:iconGravity="textStart"
+				app:iconPadding="0dp"
+				app:iconTint="@color/btn_icon_default"
+				android:onClick="onMineuPlexa"/>
+
+		</LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/addressIL"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+			app:errorTextAppearance="@style/TextErrorStyle"
+			app:errorEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/addressWizard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+				android:textSize="14sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:gravity="end">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/bg_lighter"
+                android:text="@string/paste"
+                android:textSize="14sp"
+                android:textAllCaps="false"
+                android:textColor="@color/txt_button_filled"
+                android:onClick="onPaste"
+                app:icon="@drawable/ic_paste"
+                app:iconGravity="textStart"
+                app:iconSize="18dp"
+				app:iconTint="@color/btn_icon_default"
+                app:cornerRadius="5dp" />
+
+		</LinearLayout>
+
+	</LinearLayout>
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true">
+
+		<Button
+			android:id="@+id/saveSettings"
+			android:layout_width="match_parent"
+			android:layout_height="55dp"
+			android:layout_marginTop="15dp"
+			android:layout_marginStart="15dp"
+			android:layout_marginEnd="15dp"
+			android:layout_marginBottom="15dp"
+			android:backgroundTint="@color/bg_blue"
+			android:onClick="onNext"
+			android:text="@string/next"
+			android:textSize="14sp"
+			android:textAllCaps="false"
+			android:textColor="@color/txt_button_filled"
+			app:cornerRadius="7.5dp" />
+
+	</RelativeLayout>
+
+</RelativeLayout>

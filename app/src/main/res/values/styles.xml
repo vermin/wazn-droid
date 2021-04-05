@@ -1,13 +1,38 @@
 <resources>
-
     <!-- Base application theme. -->
-   <!-- <style name="AppTheme" parent="android:Theme.DeviceDefault.Light.NoActionBar">-->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents">
         <!-- Customize your theme here. -->
-
+        <item name="colorPrimary">@color/bg_lighter</item>
+        <item name="colorPrimaryDark">@color/c_inactive</item>
+        <item name="colorAccent">@color/bg_lighter</item>
+        <item name="colorControlNormal">@color/c_grey</item>
+        <item name="colorControlActivated">@color/c_blue</item>
+        <item name="colorControlHighlight">@color/c_blue</item>
     </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:colorBackground">@color/bg_lighter</item>
+        <item name="android:textColor">@color/c_grey</item>
+    </style>
+
+    <style name="TextErrorStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/c_red</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="SwitchTheme" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">@color/c_blue</item>
+        <!-- inactive thumb color -->
+        <item name="colorSwitchThumbNormal">@color/c_grey</item>
+        <!-- inactive track color (30% transparency) -->
+        <item name="android:colorForeground">@color/c_grey</item>
     </style>
 </resources>

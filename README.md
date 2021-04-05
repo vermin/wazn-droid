@@ -5,13 +5,13 @@ WAZN Android Miner
 
 Optimized android miner running on a blockchain created for WAZN Project.
 
-<img src="https://wazn.io/downloads/img/wazndroid_miner.png">	&nbsp;	&nbsp;	&nbsp;	&nbsp;	<img src="https://wazn.io/downloads/img/wazndroid_settings.png">
+<img src="https://wazn.io/downloads/img/wazndroid_miner.png" height="400">	&nbsp;	&nbsp;	&nbsp;	&nbsp;	<img src="./dashboard3.png" height="400" />
 
 ## Usage
 
 Miner application will work on devices with ARM64 architecture.
 
-Install and run the app, enter your wallet address, press start button to initiate mining or press stop to suspend mining.  
+Install and run the app, enter your Wazn wallet address, press start button to initiate mining or press stop to suspend mining.  
 Connections are available through [wazn-proxy](https://github.com/project-wazn/wazn-proxy) and mining is made on a server running [wazn-nodejs-pool](https://github.com/project-wazn/wazn-nodejs-pool).
 
 ## Notes
@@ -25,7 +25,7 @@ Currently only arm64 binaries are included, and the app will refuse to work on o
 ## License
 ```
 Licensed under the GPL-3.0
-Copyright (c) 2019 WAZN Project
+Copyright (c) 2019-2021 Wazn Project
 Copyright (c) 2019 uPlexa
 Copyright (c) 2017-2019 xmrig
 ```

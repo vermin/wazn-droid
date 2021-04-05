@@ -1,152 +1,752 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <!--
-  android:background="@drawable/androidbackground"
-    android:backgroundTint="#223F0FAF"
-    android:backgroundTintMode="src_over"
-    -->
+    android:layout_height="wrap_content"
+    android:background="@color/bg_body">
 
-    <TextView
-        android:id="@+id/addressText"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="5dp"
-        android:paddingTop="15dp"
-        android:text="Your WAZN Wallet Address:"
-        android:textColor="#339933" />
-
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/addressText"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="5dp"
-        android:background="#323232"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:text="YOUR_WAZN_ADDRESS_HERE"
-        android:textColor="#ffffff"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/thresholdText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/username"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="5dp"
-        android:paddingTop="10dp"
-        android:text="Payout threshold (minimum: 10 WAZN):"
-        android:textColor="#339933" />
-
-    <EditText
-        android:id="@+id/threshold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/thresholdText"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="5dp"
-        android:background="#323232"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:text="10.00"
-        android:textColor="#ffffff"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/workerText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/threshold"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="5dp"
-        android:paddingTop="10dp"
-        android:text="Miner Name:"
-        android:textColor="#339933" />
-
-    <EditText
-        android:id="@+id/workerID"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/workerText"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="5dp"
-        android:autofillHints=""
-        android:background="#323232"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:text="MyAndroidDevice"
-        android:textColor="#ffffff"
-        android:textSize="16sp" />
-    <!--
-    <TextView
-        android:id="@+id/minPayTitle"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="Payment Threshold"
-        android:layout_below="@id/username"
-        android:textColor="#fff"
-        android:padding="5dp"
-        android:layout_margin="5dp"
-        /> -->
-    <!--
-    <EditText
-        android:id="@+id/minPay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#AA000000"
-        android:layout_below="@id/minPayTitle"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:text="25.00"
-        android:textColor="#fff" />
--->
-    <TextView
-        android:id="@+id/breaker"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/workerID" />
-
-
-    <Button
-        android:id="@+id/saveSettings"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_below="@id/breaker"
-        android:layout_centerInParent="true"
-        android:background="@drawable/button_selector"
-        android:text="Save"
-        android:textColor='#ffffff' />
-
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/saveSettings">
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="90dp"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/fetchdata"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:gravity="start"
+            android:text="@string/settings"
+            android:textColor="@color/txt_headline"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="5dp"
-            android:textColor="#339933"
-            android:textColorHint="#339933"
-            android:textSize="18sp" />
+            android:layout_height="wrap_content">
 
-    </ScrollView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:text="@string/walletaddress2"
+                        android:textColor="@color/txt_secondary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:id="@+id/btnMineuPlexa"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:backgroundTint="@android:color/transparent"
+                        android:layout_gravity="center_vertical"
+                        app:cornerRadius="5dp"
+                        app:icon="@drawable/ic_star"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:iconTint="@color/c_grey"
+                        tools:ignore="UnusedAttribute" />
+
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/addressIL"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:errorTextAppearance="@style/TextErrorStyle"
+                    app:errorEnabled="false">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <Button
+                        android:id="@+id/btnPasteAddress"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/bg_lighter"
+                        android:text="@string/paste"
+                        android:textSize="14sp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/txt_button_filled"
+                        app:icon="@drawable/ic_paste"
+                        app:iconGravity="textStart"
+                        app:iconSize="18dp"
+                        app:iconTint="@color/btn_icon_default"
+                        app:cornerRadius="5dp"
+                        tools:ignore="UnusedAttribute" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="start"
+                    android:text="@string/pool"
+                    android:textColor="@color/txt_secondary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_marginStart="0.5dp"
+                android:background="@drawable/spinner_theme"
+                android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/spinnerPool"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/txt_main"
+                        android:layout_weight="4"
+                        android:spinnerMode="dropdown"
+                        android:popupBackground="@color/input_bg_default"
+                        android:background="@android:color/transparent"
+                        android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/imgSpinnerDown"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    app:srcCompat="@drawable/ic_down"
+                    android:focusable="true" />
+
+            </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0"
+                    android:orientation="horizontal"
+                    android:baselineAligned="false">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/poolurlIL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="3dp"
+                        android:layout_weight="1"
+                        app:errorEnabled="false"
+                        tools:ignore="NestedWeights">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/pool"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/mining_pool_address"
+                            android:inputType="textUri"
+                            android:singleLine="true"
+                            android:textColor="@color/txt_main"
+                            android:textColorHint="@color/txt_inactive"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/portIL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        app:errorEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/port"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:hint="@string/mining_pool_port"
+                            android:inputType="number"
+                            android:maxLength="6"
+                            android:singleLine="true"
+                            android:textColor="@color/txt_main"
+                            android:textColorHint="@color/txt_inactive"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="start"
+                    android:text="@string/pooloptions"
+                    android:textColor="@color/txt_main"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/usernameparamsIL"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    app:errorEnabled="false">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/usernameparameters"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/usernameparametershint"
+                        android:textColor="@color/txt_main"
+                        android:textColorHint="@color/txt_inactive"
+                        android:textSize="14sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/workernameIL"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    app:errorEnabled="false">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/workername"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/workernamehint"
+                        android:textColor="@color/txt_main"
+                        android:textColorHint="@color/txt_inactive"
+                        android:textSize="14sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/mininggoalIL"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    app:errorEnabled="false">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/mininggoal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/mininggoalhint"
+                        android:inputType="number"
+                        android:textColor="@color/txt_main"
+                        android:textColorHint="@color/txt_inactive"
+                        android:textSize="14sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="15dp"
+                android:layout_weight="0"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:text="@string/hardwaresettings"
+                    android:textColor="@color/txt_secondary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnHardwareHelp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    android:backgroundTint="@android:color/transparent"
+                    app:cornerRadius="5dp"
+                    app:icon="@drawable/ic_help"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconTint="@color/txt_secondary"
+                    tools:ignore="UnusedAttribute" />
+
+            </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="0"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cpu_cores"
+                        android:textColor="@color/txt_main"
+                        android:textSize="14sp" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        tools:ignore="NestedWeights" />
+
+                    <TextView
+                        android:id="@+id/coresnb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:text="1"
+                        android:textColor="@color/txt_main"
+                        android:textSize="14sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:text="/"
+                        android:textColor="@color/txt_main"
+                        android:textSize="14sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/coresmax"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="#"
+                        android:textColor="@color/txt_main"
+                        android:textSize="14sp"
+                        tools:ignore="HardcodedText" />
+
+                </LinearLayout>
+
+                <SeekBar
+                    android:id="@+id/seekbarcores"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="8"
+                    android:maxHeight="5dp"
+                    android:min="1"
+                    android:minHeight="5dp"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:progress="4"
+                    android:progressDrawable="@drawable/seekbar_ruler_yellow"
+                    android:thumbTint="@color/c_white"
+                    android:thumbOffset="0dp"
+                    tools:ignore="UnusedAttribute" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="0"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="5dp"
+                        android:text="@string/cputemperature"
+                        android:textColor="@color/txt_main"
+                        android:textSize="14sp" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        tools:ignore="NestedWeights" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="3dp"
+                        android:text="@string/max"
+                        android:textColor="@color/txt_main"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/cpumaxtemp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="2dp"
+                        android:text="#"
+                        android:textColor="@color/txt_main"
+                        android:textSize="14sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/degreecelsius"
+                        android:textColor="@color/txt_main"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <SeekBar
+                    android:id="@+id/seekbarcputemperature"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="9"
+                    android:maxHeight="5dp"
+                    android:min="1"
+                    android:minHeight="5dp"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:progress="3"
+                    android:progressDrawable="@drawable/seekbar_ruler_blue"
+                    android:thumbTint="@color/c_white"
+                    android:thumbOffset="0dp"
+                    tools:ignore="UnusedAttribute" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="0"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="5dp"
+                        android:text="@string/batterytemperature"
+                        android:textColor="@color/txt_main"
+                        android:textSize="14sp" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        tools:ignore="NestedWeights" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="3dp"
+                        android:text="@string/max"
+                        android:textColor="@color/txt_main"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/batterymaxtemp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="2dp"
+                        android:text="#"
+                        android:textColor="@color/txt_main"
+                        android:textSize="14sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/degreecelsius"
+                        android:textColor="@color/txt_main"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <SeekBar
+                    android:id="@+id/seekbarbatterytemperature"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="5"
+                    android:maxHeight="5dp"
+                    android:min="1"
+                    android:minHeight="5dp"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:progress="3"
+                    android:progressDrawable="@drawable/seekbar_ruler_blue"
+                    android:thumbTint="@color/c_white"
+                    android:thumbOffset="0dp"
+                    tools:ignore="UnusedAttribute" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="0"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="5dp"
+                        android:text="@string/cooldownthreshold"
+                        android:textColor="@color/txt_main"
+                        android:textSize="14sp" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        tools:ignore="NestedWeights" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="3dp"
+                        android:text="-"
+                        android:textColor="@color/txt_main"
+                        android:textSize="14sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/cooldownthreshold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="2dp"
+                        android:text="#"
+                        android:textColor="@color/txt_main"
+                        android:textSize="14sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="%"
+                        android:textColor="@color/txt_main"
+                        android:textSize="14sp"
+                        tools:ignore="HardcodedText" />
+
+                </LinearLayout>
+
+                <SeekBar
+                    android:id="@+id/seekbarcooldownthreshold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="5"
+                    android:maxHeight="5dp"
+                    android:min="1"
+                    android:minHeight="5dp"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:progress="3"
+                    android:progressDrawable="@drawable/seekbar_ruler_blue"
+                    android:thumbTint="@color/c_white"
+                    android:thumbOffset="0dp"
+                    tools:ignore="UnusedAttribute" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="15dp"
+                    android:gravity="start"
+                    android:text="@string/advanced"
+                    android:textColor="@color/txt_secondary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pauseminingonbattery"
+                        android:textColor="@color/c_grey"
+                        android:textSize="14sp"
+                        android:checked="false"
+                        app:buttonTint="@color/txt_main" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        tools:ignore="NestedWeights" />
+
+                    <Switch
+                        android:id="@+id/chkPauseOnBattery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/SwitchTheme" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.7dp"
+                    android:background="@color/txt_main"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/keepscreenonwhenmining"
+                        android:textColor="@color/txt_main"
+                        android:textSize="14sp"
+                        android:checked="false" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        tools:ignore="NestedWeights" />
+
+                    <Switch
+                        android:id="@+id/chkKeepScreenOnWhenMining"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/SwitchTheme" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.7dp"
+                    android:background="@color/txt_main"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/turnoffamayccontrol"
+                        android:textColor="@color/txt_main"
+                        android:textSize="14sp"
+                        android:checked="false" />
+
+                    <Button
+                        android:id="@+id/btnAmaycWarning"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:backgroundTint="@android:color/transparent"
+                        app:cornerRadius="5dp"
+                        app:icon="@drawable/ic_warning"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:iconTint="@color/c_yellow"
+                        tools:ignore="UnusedAttribute" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        tools:ignore="NestedWeights" />
+
+                    <Switch
+                        android:id="@+id/chkAmaycOff"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/SwitchTheme" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.7dp"
+                    android:background="@color/txt_main"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/saveSettings"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
+            app:backgroundTint="@color/bg_blue"
+            android:text="@string/save"
+            android:textSize="14sp"
+            android:textAllCaps="false"
+            android:textColor="@color/txt_button_filled"
+            app:cornerRadius="5dp"
+            tools:ignore="TooManyViews,UnusedAttribute" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
