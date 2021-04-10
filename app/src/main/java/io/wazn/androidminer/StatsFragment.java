@@ -1,12 +1,21 @@
+// Copyright (c) 2019, Mine2Gether.com
+//
+// Please see the included LICENSE file for more information.
+//
+// Copyright (c) 2020-2021 Project Wazn
+// Copyright (c) 2021 Scala
+//
+// Please see the included LICENSE file for more information.
+
 package io.wazn.androidminer;
 
 import android.content.Intent;
-import android.graphics.Paint;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,18 +23,20 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.Locale;
+
 import io.wazn.androidminer.api.ProviderData;
 import io.wazn.androidminer.api.PoolItem;
 import io.wazn.androidminer.api.IProviderListener;
 import io.wazn.androidminer.api.ProviderManager;
 
 public class StatsFragment extends Fragment {
+    protected static IProviderListener statsListener;
 
-    private static final String LOG_TAG = "MiningSvc";
+    public static ProviderData poolData = null;
 
-    private TextView tvViewStatsOnline;
+    static final View view = null;
 
-    protected IProviderListener statsListener;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,47 +49,69 @@ public class StatsFragment extends Fragment {
 
             @Override
             public boolean onEnabledRequest() {
-                return checkValidState();
+                return true;
             }
         };
 
-        tvViewStatsOnline = view.findViewById(R.id.checkstatsonline);
-        tvViewStatsOnline.setPaintFlags(tvViewStatsOnline.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tvViewStatsOnline.setEnabled(false);
-        tvViewStatsOnline.setTextColor(getResources().getColor(R.color.c_grey));
+        LinearLayout llPayments = view.findViewById(R.id.llPayments);
+        llPayments.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                onShowPayments();
+            }
+        });
 
         ProviderManager.request.setListener(statsListener).start();
         ProviderManager.afterSave();
+
         updateFields(ProviderManager.data, view);
+
+        checkValidState();
+
+        PoolItem pi = ProviderManager.getSelectedPool();
+
+        ImageView ivShowPayments = view.findViewById(R.id.ivShowPayments);
+        ivShowPayments.setVisibility(pi.getPoolType() == 0 ? View.GONE : View.VISIBLE);
 
         return view;
     }
 
-    private void updateFields(ProviderData d, View view) {
+    public static void updateStatsListener() {
+        ProviderManager.fetchStats();
+        updateFields(ProviderManager.data, view);
+    }
+
+    private static void updateFields(ProviderData d, View view) {
+        poolData = d;
+
         if(view == null || view.getContext() == null)
             return;
 
         if(d.isNew) {
-            enableOnlineStats(false);
             return;
         }
 
-        PoolItem pm = ProviderManager.getSelectedPool();
+        PoolItem pi = ProviderManager.getSelectedPool();
+
+        ImageView ivShowPayments = view.findViewById(R.id.ivShowPayments);
+        ivShowPayments.setVisibility(pi.getPoolType() == 0 ? View.GONE : View.VISIBLE);
 
         // Network
 
+        String[] n = d.network.hashrate.split(" ");
         TextView tvNetworkHashrate = view.findViewById(R.id.hashratenetwork);
-        tvNetworkHashrate.setText(d.network.hashrate.isEmpty() ? "n/a" : d.network.hashrate);
+        tvNetworkHashrate.setText(n.length > 0 ? n[0] : "n/a");
+
+        TextView tvNetworkHashrateUnit = view.findViewById(R.id.hashratenetwork_unit);
+        tvNetworkHashrateUnit.setText(n.length > 1 ? n[1] : "MH/s");
 
         TextView tvNetworkDifficulty = view.findViewById(R.id.difficultynetwork);
         tvNetworkDifficulty.setText(d.network.difficulty.isEmpty() ? "n/a" : d.network.difficulty);
-
 
         TextView tvNetworkBlocks = view.findViewById(R.id.lastblocknetwork);
         tvNetworkBlocks.setText(d.network.lastBlockTime.isEmpty() ? "n/a" : d.network.lastBlockTime);
 
         TextView tvNetworkHeight = view.findViewById(R.id.height);
-        tvNetworkHeight.setText(d.network.lastBlockHeight.isEmpty() ? "n/a" : d.network.lastBlockHeight);
+        tvNetworkHeight.setText(d.network.lastBlockHeight.isEmpty() ? "n/a" : String.format(Locale.getDefault(), "%,d", Long.parseLong(d.network.lastBlockHeight)));
 
         TextView tvNetworkRewards = view.findViewById(R.id.rewards);
         tvNetworkRewards.setText(d.network.lastRewardAmount.isEmpty() ? "n/a" : d.network.lastRewardAmount);
@@ -86,117 +119,113 @@ public class StatsFragment extends Fragment {
         // Pool
 
         TextView tvPoolURL = view.findViewById(R.id.poolurl);
-        tvPoolURL.setText(pm.getPool() == null ? "" : pm.getPool());
+        tvPoolURL.setText(pi.getPool() == null ? "" : pi.getPool());
 
+        String[] p = d.pool.hashrate.split(" ");
         TextView tvPoolHashrate = view.findViewById(R.id.hashratepool);
-        tvPoolHashrate.setText(d.pool.hashrate.isEmpty() ? "n/a" : d.pool.hashrate);
+        tvPoolHashrate.setText(p.length > 0 ? p[0] : "n/a");
+
+        TextView tvPoolHashrateUnit = view.findViewById(R.id.hashratepool_unit);
+        tvPoolHashrateUnit.setText(p.length > 1 ? p[1] : "kH/s");
 
         TextView tvPoolMiners = view.findViewById(R.id.miners);
-        tvPoolMiners.setText(d.pool.miners.isEmpty() ? "n/a" : d.pool.miners);
-        /*
-        TextView tvPoolBlocks = view.findViewById(R.id.lastblockpool);
-        tvPoolBlocks.setText(d.pool.lastBlockTime.isEmpty() ? "n/a" : d.pool.lastBlockTime);
-        */
-        TextView tvPoolLastBlock = view.findViewById(R.id.blockspool);
-        tvPoolLastBlock.setText(d.pool.blocks.isEmpty() ? "n/a" : d.pool.blocks);
+        tvPoolMiners.setText(d.pool.miners.isEmpty() ? "n/a" : String.format(Locale.getDefault(), "%,d", Integer.parseInt(d.pool.miners)));
+
+        TextView tvPoolLastBlock = view.findViewById(R.id.lastblockpool);
+        tvPoolLastBlock.setText(d.pool.lastBlockTime.isEmpty() ? "n/a" : d.pool.lastBlockTime);
+
+        // Pool Blocks
+        LinearLayout llPoolBlocks = view.findViewById(R.id.llBlocksPool);
+        TextView tvPoolLBlocks = view.findViewById(R.id.blockspool);
+
+        // Not available for cryptonote-nodejs-pool and custom pools
+        if(pi.getPoolType() == 2 || pi.getPoolType() == 0) {
+            tvPoolLBlocks.setText("n/a");
+            llPoolBlocks.setVisibility(View.GONE);
+        } else {
+            tvPoolLBlocks.setText(d.pool.blocks.isEmpty() ? "n/a" : String.format(Locale.getDefault(), "%,d", Long.parseLong(d.pool.blocks)));
+            llPoolBlocks.setVisibility(View.VISIBLE);
+        }
 
         // Address
 
-        String wallet = Config.read("address");
-        String prettyaddress = wallet.substring(0, 7) + "..." + wallet.substring(wallet.length() - 7);
+        String wallet = Config.read(Config.CONFIG_ADDRESS);
+        String prettyaddress = "";
+        if(!wallet.isEmpty())
+            prettyaddress = wallet.substring(0, 7) + "..." + wallet.substring(wallet.length() - 7);
 
         TextView tvWalletAddress = view.findViewById(R.id.walletaddress);
         tvWalletAddress.setText(prettyaddress);
 
         String sHashrate = d.miner.hashrate;
-        if(sHashrate != null) {
-            sHashrate = sHashrate.replace("H", "").trim();
-            TextView tvAddressHashrate = view.findViewById(R.id.hashrateminer);
-            tvAddressHashrate.setText(sHashrate);
+        TextView tvAddressHashrate = view.findViewById(R.id.hashrateminer);
+        TextView tvAddressHashrateUnit = view.findViewById(R.id.hashrateminer_unit);
 
-            TextView tvAddressLastShare = view.findViewById(R.id.lastshareminer);
-            tvAddressLastShare.setText(d.miner.lastShare.isEmpty() ? "n/a" : d.miner.lastShare);
+        if(!sHashrate.isEmpty()) {
+            String[] a = sHashrate.split(" ");
 
-            TextView tvAddressBlocks = view.findViewById(R.id.blocksminedminer);
-            tvAddressBlocks.setText(d.miner.blocks.isEmpty() ? "n/a" : d.miner.blocks);
-
-            String sBalance = d.miner.balance.replace("WAZN", "").trim();
-            TextView tvBalance = view.findViewById(R.id.balance);
-            tvBalance.setText(sBalance);
-
-            String sPaid = d.miner.paid.replace("WAZN", "").trim();
-            TextView tvPaid = view.findViewById(R.id.paid);
-            tvPaid.setText(sPaid);
+            tvAddressHashrate.setText(a.length > 0 ? a[0] : "n/a");
+            tvAddressHashrateUnit.setText(a.length > 1 ? a[1] : "H/s");
+        } else {
+            tvAddressHashrate.setText(pi.getPoolType() == 0 ? "n/a" : "0");
+            tvAddressHashrateUnit.setText("H/s");
         }
 
-        enableOnlineStats(true);
+        tvAddressHashrate.setTextColor(tvAddressHashrate.getText().equals("0") || tvAddressHashrate.getText().equals("n/a") ? view.getResources().getColor(R.color.txt_main) : view.getResources().getColor(R.color.c_green));
 
-        String statsUrlWallet = pm.getStatsURL() + "?wallet=" + wallet;
-        tvViewStatsOnline.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Uri uri = Uri.parse(statsUrlWallet);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-            }
-        });
+        TextView tvAddressLastShare = view.findViewById(R.id.lastshareminer);
+        tvAddressLastShare.setText(d.miner.lastShare.isEmpty() ? "n/a" : d.miner.lastShare);
+
+        TextView tvAddressSubmittedHash = view.findViewById(R.id.submittedhash);
+        tvAddressSubmittedHash.setText(pi.getPoolType() == 1 || pi.getPoolType() == 2 ? view.getResources().getString(R.string.submitted_shares) : view.getResources().getString(R.string.submitted_hashes));
+
+        TextView tvAddressBlocks = view.findViewById(R.id.blocksminedminer);
+        tvAddressBlocks.setText(d.miner.shares.isEmpty() ? "n/a" : String.format(Locale.getDefault(), "%,d", Long.parseLong(d.miner.shares)));
+
+        String sBalance = d.miner.balance.replace("WAZN", "").trim();
+        TextView tvBalance = view.findViewById(R.id.balance);
+        tvBalance.setText(d.miner.balance.isEmpty() ? pi.getPoolType() == 0 ? "n/a" : Tools.getLongValueString(0.0) : sBalance);
+
+        String sPaid = d.miner.paid.replace("WAZN", "").trim();
+        TextView tvPaid = view.findViewById(R.id.paid);
+        tvPaid.setText(d.miner.paid.isEmpty() ? pi.getPoolType() == 0 ? "n/a" : Tools.getLongValueString(0.0) : sPaid);
+        tvPaid.setTextSize(sPaid.length() > 6 ? 12 : 14);
+
+        TextView tvPaidUnit = view.findViewById(R.id.paid_unit);
+        tvPaidUnit.setTextSize(sPaid.length() > 6 ? 12 : 14);
     }
 
-    private void enableOnlineStats(boolean enable) {
-        tvViewStatsOnline.setEnabled(enable);
+    public void onShowPayments() {
+        PoolItem pi = ProviderManager.getSelectedPool();
 
-        if (enable) {
-            tvViewStatsOnline.setTextColor(getResources().getColor(R.color.c_blue));
-        }
-        else {
-            tvViewStatsOnline.setTextColor(getResources().getColor(R.color.c_grey));
-        }
+        if(pi.getPoolType() != 0)
+            startActivity(new Intent(getActivity(), PaymentsActivity.class));
     }
 
-    public boolean checkValidState() {
+    public void checkValidState() {
         if(getContext() == null)
-            return false;
+            return;
 
-        if(Config.read("address").equals("")) {
-            Toast.makeText(getContext(),"Wallet address is empty.", Toast.LENGTH_LONG).show();
-            enableOnlineStats(false);
-            return false;
+        if(Config.read(Config.CONFIG_ADDRESS).equals("")) {
+            Utils.showToast(getContext(),"Wallet address is empty.", Toast.LENGTH_LONG);
+            return;
         }
 
         PoolItem pi = ProviderManager.getSelectedPool();
 
-        if (!Config.read("init").equals("1") || pi == null) {
-            Toast.makeText(getContext(),"Start mining to view statistics.", Toast.LENGTH_LONG).show();
-            enableOnlineStats(false);
-            return false;
+        if (!Config.read(Config.CONFIG_INIT).equals("1") || pi == null) {
+            Utils.showToast(getContext(),"Start mining to view statistics.", Toast.LENGTH_LONG);
+            return;
         }
 
         if (pi.getPoolType() == 0) {
-            Toast.makeText(getContext(),"Statistics are not available for custom pools.", Toast.LENGTH_LONG).show();
-            enableOnlineStats(false);
-            return false;
+            Utils.showToast(getContext(),"Statistics are not available for custom pools.", Toast.LENGTH_LONG);
         }
-
-        enableOnlineStats(true);
-
-        return true;
     }
 
     @Override
     public void onResume() {
         super.onResume();
         ProviderManager.request.setListener(statsListener).start();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        enableOnlineStats(false);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        enableOnlineStats(false);
     }
 }

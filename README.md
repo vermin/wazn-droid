@@ -3,9 +3,13 @@ WAZN Android Miner
 
 [![License](https://img.shields.io/badge/license-GPL--3.0-blue)](https://opensource.org/licenses/GPL-3.0)
 
-Optimized android miner running on a blockchain created for WAZN Project.
+A high performance and open-source application for mining Wazn on Android mobile devices.
 
 <img src="https://wazn.io/downloads/img/wazndroid_miner.png" height="400">	&nbsp;	&nbsp;	&nbsp;	&nbsp;	<img src="./dashboard3.png" height="400" />
+
+## Supported CPU instruction sets
+- **armeabi-v7a**
+- **arm64-v8a**
 
 ## Usage
 
@@ -16,7 +20,7 @@ Connections are available through [wazn-proxy](https://github.com/project-wazn/w
 
 ## Notes
 
-The xmrig binary is copied to the app's internal directory along with its dependent libraries as it can only be executed from that location.
+The waznrig binary is copied to the app's internal directory along with its dependent libraries as it can only be executed from that location.
 
 The binary is started using the ProcessBuilder class, and the output is captured into the application scrolling pane once each second.
 

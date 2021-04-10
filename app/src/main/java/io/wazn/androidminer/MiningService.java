@@ -1,3 +1,30 @@
+/*
+ *  Monero Miner App (c) 2018 Uwe Post
+ *  based on the XMRig Monero Miner https://github.com/xmrig/xmrig
+ *
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * /
+ */
+// Copyright (c) 2019, Mine2Gether.com
+//
+// Please see the included LICENSE file for more information.
+//
+// Copyright (c) 2020-2021 Project Wazn
+// Copyright (c) 2021 Scala
+//
+// Please see the included LICENSE file for more information.
+
 package io.wazn.androidminer;
 
 import android.app.NotificationManager;
@@ -17,7 +44,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -28,10 +54,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.net.Inet4Address;
-import java.net.Inet6Address;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
@@ -62,7 +84,7 @@ public class MiningService extends Service {
     private String lastOutput = "";
     private static RequestQueue reqQueue;
 
-    private static String API_IP = "https://json.geoiplookup.io/";
+    private final static String API_IP = "https://json.geoiplookup.io/";
 
     @Override
     public void onCreate()
@@ -76,17 +98,25 @@ public class MiningService extends Service {
 
     @Override
     public void onTaskRemoved(Intent rootIntent) {
-        super.onTaskRemoved(rootIntent);
-
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
+
+        super.onTaskRemoved(rootIntent);
+    }
+
+    @Override
+    public void onDestroy() {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancelAll();
+
+        super.onDestroy();
     }
 
     private MiningServiceStateListener listener = null;
 
     public interface MiningServiceStateListener {
-        void onStateChange(Boolean state);
-        void onStatusChange(String status, float speed, float max, Integer accepted, Integer difficulty, Integer connection);
+        void onStateChange(Boolean state, String message);
+        void onStatusChange(String status, float speed, float max, int accepted, int difficulty, int connection);
     }
 
     public void setMiningServiceStateListener(MiningServiceStateListener listener) {
@@ -96,12 +126,12 @@ public class MiningService extends Service {
 
     Boolean mMiningServiceState = false;
 
-    private void raiseMiningServiceStateChange(Boolean state) {
+    private void raiseMiningServiceStateChange(boolean state, String message) {
         mMiningServiceState = state;
-        if (listener != null) listener.onStateChange(state);
+        if (listener != null) listener.onStateChange(state, message);
     }
 
-    private void raiseMiningServiceStatusChange(String status, float speed, float max, Integer accepted, Integer difficulty, Integer connection) {
+    private void raiseMiningServiceStatusChange(String status, float speed, float max, int accepted, int difficulty, int connection) {
         if (listener != null) listener.onStatusChange(status, speed, max, accepted, difficulty, connection);
     }
 
@@ -146,21 +176,21 @@ public class MiningService extends Service {
             return MiningService.this;
         }
     }
-    /*
+
     private static String createCpuConfig(int cores, int threads, int intensity) {
-        String cpuConfig = "";
+        StringBuilder cpuConfig = new StringBuilder();
 
         for (int i = 0; i < cores; i++) {
             for (int j = 0; j < threads; j++) {
-                if (!cpuConfig.equals("")) {
-                    cpuConfig += ",";
+                if (!cpuConfig.toString().equals("")) {
+                    cpuConfig.append(",");
                 }
-                cpuConfig += "[" + intensity + "," + i + "]";
+                cpuConfig.append("[").append(intensity).append(",").append(i).append("]");
             }
         }
 
         return "[" + cpuConfig + "]";
-    }*/
+    }
 
     static class MiningConfig {
         String username, pool, password, algo, assetExtension, cpuConfig, poolHost, poolPort;
@@ -173,7 +203,7 @@ public class MiningService extends Service {
         config.username = address;
         config.cores = cores;
         config.threads = threads;
-        //config.intensity = intensity;
+        config.intensity = intensity;
         config.password = password;
         config.algo = Config.algo;
         config.assetExtension = Config.miner_waznrig;
@@ -185,15 +215,9 @@ public class MiningService extends Service {
         config.poolHost = pi.getPool();
         config.poolPort = pi.getPort();
 
-        //config.cpuConfig = createCpuConfig(cores, threads, intensity);
+        config.cpuConfig = createCpuConfig(cores, threads, intensity);
 
         return config;
-    }
-
-    @Override
-    public void onDestroy() {
-        stopMining();
-        super.onDestroy();
     }
 
     @Override
@@ -219,9 +243,8 @@ public class MiningService extends Service {
     }
 
     public static String getIpByHost(PoolItem pi) {
-
         String hostIP = "";
-        /*
+
         RequestFuture<JSONObject> future = RequestFuture.newFuture();
         JsonObjectRequest request = new JsonObjectRequest(API_IP + pi.getPool(), new JSONObject(), future, future);
         reqQueue.add(request);
@@ -233,7 +256,7 @@ public class MiningService extends Service {
             e.printStackTrace();
         }
 
-        if(hostIP.isEmpty())*/
+        if(hostIP.isEmpty())
             hostIP = pi.getPoolIP();
 
         return hostIP + ":" + pi.getPort();
@@ -298,11 +321,8 @@ public class MiningService extends Service {
             String[] args = {"./" + Config.miner_waznrig};
 
             ProcessBuilder pb = new ProcessBuilder(args);
-
             pb.directory(new File(privatePath));
-
             pb.environment().put("LD_LIBRARY_PATH", privatePath);
-
             pb.redirectErrorStream();
 
             accepted = 0;
@@ -314,7 +334,7 @@ public class MiningService extends Service {
 
             process = pb.start();
 
-            outputHandler = new MiningService.OutputReaderThread(process.getInputStream(), Config.miner_waznrig);
+            outputHandler = new MiningService.OutputReaderThread(process.getInputStream());
             outputHandler.start();
 
             inputHandler = new MiningService.InputReaderThread(process.getOutputStream());
@@ -329,21 +349,12 @@ public class MiningService extends Service {
 
         } catch (Exception e) {
             Log.e(LOG_TAG, "exception:", e);
-            Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            Utils.showToast(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT);
             process = null;
         }
     }
 
-    public float getSpeed() {
-        return speed;
-    }
-
-    public int getAccepted() {
-        return accepted;
-    }
-
     public String getOutput() {
-
         if (outputHandler != null && outputHandler.getOutput() != null) {
             lastOutput =  outputHandler.getOutput().toString();
         }
@@ -358,7 +369,6 @@ public class MiningService extends Service {
     }
 
     private class ProcessMonitor extends Thread {
-
         Process proc;
 
         ProcessMonitor(Process proc) {
@@ -367,17 +377,16 @@ public class MiningService extends Service {
 
         public void run() {
             try {
-
-                raiseMiningServiceStateChange(true);
+                raiseMiningServiceStateChange(true, "");
                 if (proc != null) {
                     proc.waitFor();
                     Log.i(LOG_TAG, "process exit: " + proc.exitValue());
                 }
-                raiseMiningServiceStateChange(false);
+                raiseMiningServiceStateChange(false, "");
 
             } catch (Exception e) {
                 // assume problem with process and not running
-                raiseMiningServiceStateChange(false);
+                raiseMiningServiceStateChange(false, e.getMessage());
                 Log.e(LOG_TAG, "exception:", e);
             }
         }
@@ -387,7 +396,7 @@ public class MiningService extends Service {
         private InputStream inputStream;
         private StringBuilder output = new StringBuilder();
 
-        OutputReaderThread(InputStream inputStream, String miner) {
+        OutputReaderThread(InputStream inputStream) {
             this.inputStream = inputStream;
         }
 
@@ -401,37 +410,42 @@ public class MiningService extends Service {
                 if(lineCompare.contains("diff")) {
                     int i = lineCompare.indexOf("diff ") + "diff ".length();
                     int imax = lineCompare.indexOf(" ", i);
-                    String diff = lineCompare.substring(i, imax).trim();
-                    difficulty = Integer.parseInt(lineCompare.substring(i, imax).trim());;
+                    difficulty = Integer.parseInt(lineCompare.substring(i, imax).trim());
                 }
 
                 if(lineCompare.contains("ms)")) {
                     int i = lineCompare.indexOf("(", lineCompare.length() - 10) + 1;
                     int imax = lineCompare.indexOf("ms)");
-                    String conn = lineCompare.substring(i, imax).trim();
-                    connection = Integer.parseInt(lineCompare.substring(i, imax).trim());;
+                    connection = Integer.parseInt(lineCompare.substring(i, imax).trim());
                 }
 
-            } else if (lineCompare.contains("speed")) {
+            } // For some reason some devices display "miner" instead of "speed"
+            else if (lineCompare.contains("speed")) {
                 String[] split = TextUtils.split(line, " ");
-                String tmpSpeed = split[4];
+                String tmpSpeed = lineCompare.contains("miner") ? split[9] : split[4];
                 if (tmpSpeed.equals("n/a")) {
                     tmpSpeed = split[5];
                     if (tmpSpeed.equals("n/a")) {
                         tmpSpeed = split[6];
-                        if (tmpSpeed.equals("n/a")) {
-                            tmpSpeed = "0";
-                        }
                     }
                 }
 
-                speed = Float.parseFloat(tmpSpeed.trim());
+                try {
+                    speed = Float.parseFloat(tmpSpeed.trim());
+                } catch (NumberFormatException e) {
+                    // Ignore
+                }
 
                 if (lineCompare.contains("max")) {
                     int i = lineCompare.indexOf("max ") + "max ".length();
                     int imax = lineCompare.indexOf(" ", i);
                     String tmpMax = lineCompare.substring(i, imax).trim();
-                    max = Float.parseFloat(tmpMax);
+
+                    try {
+                        max = Float.parseFloat(tmpMax);
+                    } catch (NumberFormatException e) {
+                        // Ignore
+                    }
                 }
             }
 
@@ -466,7 +480,6 @@ public class MiningService extends Service {
     }
 
     private class InputReaderThread extends Thread {
-
         private OutputStream outputStream;
         private BufferedWriter writer;
 
@@ -482,11 +495,13 @@ public class MiningService extends Service {
 
                     try {
                         Thread.sleep(250);
-                    } catch (InterruptedException e) {
+                    } catch (InterruptedException ignored) {
 
                     }
 
-                    if (currentThread().isInterrupted()) return;
+                    if (currentThread().isInterrupted()) {
+                        return;
+                    }
                 }
 
             } catch (Exception e) {
@@ -495,7 +510,6 @@ public class MiningService extends Service {
         }
 
         public void sendInput(String s) {
-
             try {
                 writer.write(s);
                 writer.flush();
@@ -504,4 +518,17 @@ public class MiningService extends Service {
             }
         }
     }
+
+    /*public boolean isMiningProcessAlive() {
+        try {
+            if(process != null) {
+                process.exitValue();
+            }
+        } catch(IllegalThreadStateException ignored) {
+            // Mining process is alive
+            return true;
+        }
+
+        return false;
+    }*/
 }

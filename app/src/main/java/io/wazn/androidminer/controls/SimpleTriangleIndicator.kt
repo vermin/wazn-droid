@@ -1,7 +1,13 @@
+//
 // This Library is built by Anas Altair
 // GitHub: https://github.com/anastr/SpeedView
+//
+// Copyright (c) 2020-2021 Project Wazn
+// Copyright (c) 2021 Scala
+//
+// Please see the included LICENSE file for more information.
 
-package io.wazn.androidminer.controls;
+package io.wazn.androidminer.controls
 
 import android.content.Context
 import android.graphics.*
@@ -39,11 +45,7 @@ class SimpleTriangleIndicator(context: Context) : Indicator<SimpleTriangleIndica
         indicatorPath.lineTo(getCenterX() + width, indicatorTop + width)
         indicatorPath.moveTo(0f, 0f)
 
-        indicatorPaint.setColor(color);
-
-        //val endColor = Color.argb(0, Color.red(color), Color.green(color), Color.blue(color))
-        //val linearGradient = LinearGradient(getCenterX(), indicatorTop, getCenterX(), indicatorTop + width, color, endColor, Shader.TileMode.CLAMP)
-        //indicatorPaint.shader = linearGradient
+        indicatorPaint.color = color
     }
 
     override fun setWithEffects(withEffects: Boolean) {

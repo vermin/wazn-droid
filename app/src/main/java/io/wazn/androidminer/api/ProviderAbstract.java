@@ -1,13 +1,20 @@
+// Copyright (c) 2020-2021 Project Wazn
+// Copyright (c) 2021 Scala
+//
+// Please see the included LICENSE file for more information.
+
 package io.wazn.androidminer.api;
 
 import android.os.AsyncTask;
-import java.util.Timer;
+
+import com.android.volley.toolbox.StringRequest;
 
 import io.wazn.androidminer.Config;
+import io.wazn.androidminer.widgets.PoolInfoAdapter;
 
 public abstract class ProviderAbstract extends AsyncTask<Void, Void, Void> {
 
-    protected String LOG_TAG = "MiningSvc";
+    protected final String LOG_TAG = "MiningSvc";
 
     final public ProviderData getBlockData() {
         return ProviderManager.data;
@@ -15,15 +22,17 @@ public abstract class ProviderAbstract extends AsyncTask<Void, Void, Void> {
 
     public IProviderListener mListener;
 
-    protected PoolItem mPoolItem;
+    protected final PoolItem mPoolItem;
 
     public ProviderAbstract(PoolItem poolItem){
         mPoolItem = poolItem;
     }
 
     final public String getWalletAddress(){
-        return Config.read("address");
+        return Config.read(Config.CONFIG_ADDRESS);
     }
+
+    abstract public StringRequest getStringRequest(PoolInfoAdapter poolsAdapter);
 
     @Override
     protected void onPostExecute(Void aVoid) {
@@ -31,9 +40,11 @@ public abstract class ProviderAbstract extends AsyncTask<Void, Void, Void> {
         if(mListener == null) {
             return;
         }
+
         if(!mListener.onEnabledRequest()) {
             return;
         }
+
         mListener.onStatsChange(getBlockData());
     }
 
@@ -44,7 +55,7 @@ public abstract class ProviderAbstract extends AsyncTask<Void, Void, Void> {
         try {
             onBackgroundFetchData();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
         getBlockData().pool.type = mPoolItem.getPoolType();

@@ -1,15 +1,39 @@
+/*
+ *  Monero Miner App (c) 2018 Uwe Post
+ *  based on the XMRig Monero Miner https://github.com/xmrig/xmrig
+ *
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * /
+ */
+// Copyright (c) 2019, Mine2Gether.com
+//
+// Please see the included LICENSE file for more information.
+//
+// Copyright (c) 2020-2021 Project Wazn
+// Copyright (c) 2021 Scala
+//
+// Please see the included LICENSE file for more information.
+
 package io.wazn.androidminer;
 
 import android.content.Context;
 import android.os.Build;
-import android.os.StrictMode;
 import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -18,6 +42,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
 import java.math.BigDecimal;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -28,6 +54,8 @@ import java.util.Objects;
 public class Tools {
 
     private static final String LOG_TAG = "MiningSvc";
+
+    public static final int TOAST_YOFFSET_BOTTOM = 5;
 
     static String loadConfigTemplate(Context context, String path) {
         try {
@@ -186,14 +214,14 @@ public class Tools {
                 .replace("$username$", miningConfig.username)
                 .replace("$pass$", miningConfig.password)
 
-                .replace("$threads$", Integer.toString(miningConfig.legacyThreads))
-                //.replace("$legacyintensity$", Integer.toString(miningConfig.legacyIntensity))
+                .replace("$legacythreads$", Integer.toString(miningConfig.legacyThreads))
+                .replace("$legacyintensity$", Integer.toString(miningConfig.legacyIntensity))
                 .replace("$legacyalgo$", miningConfig.algo)
 
                 .replace("$urlhost$", miningConfig.poolHost)
-                .replace("$urlport$", miningConfig.poolPort);
+                .replace("$urlport$", miningConfig.poolPort)
 
-                //.replace("$cpuconfig$", miningConfig.cpuConfig);
+                .replace("$cpuconfig$", miningConfig.cpuConfig);
 
         Log.i(LOG_TAG, "CONFIG: " + config);
 
@@ -208,7 +236,7 @@ public class Tools {
         Map<String, String> output = new HashMap<>();
 
         try {
-            BufferedReader br = null;
+            BufferedReader br;
             br = new BufferedReader(new FileReader("/proc/cpuinfo"));
 
             String str;
@@ -239,7 +267,7 @@ public class Tools {
         return output;
     }
 
-    static String getABI() {
+    public static String getABI() {
         String abiString;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             abiString = Build.SUPPORTED_ABIS[0];
@@ -250,7 +278,7 @@ public class Tools {
         return abiString.toLowerCase().trim();
     }
 
-    static private String[] CPU_TEMP_SYS_FILE = {
+    static private final String[] CPU_TEMP_SYS_FILE = {
             "/sys/devices/virtual/thermal/thermal_zone0/temp",
             "/sys/devices/system/cpu/cpu0/cpufreq/cpu_temp",
             "/sys/devices/system/cpu/cpu0/cpufreq/FakeShmoo_cpu_temp",
@@ -295,8 +323,8 @@ public class Tools {
     static float getCPUTempFromFile(String sFile) {
         float output = 0.0f;
 
-        RandomAccessFile reader = null;
-        String line = null;
+        RandomAccessFile reader;
+        String line;
 
         try {
             reader = new RandomAccessFile(sFile, "r");
@@ -324,7 +352,7 @@ public class Tools {
     }
 
     static float getCPUTempSysFile() {
-        float output = 0.0f;
+        float output;
         for (String sysFile : CPU_TEMP_SYS_FILE) {
             output = getCPUTempFromFile(sysFile);
 
@@ -353,7 +381,7 @@ public class Tools {
         double base = tryParseDouble(value);
         double d = base / (float) coinUnits;
 
-        return Math.round(d * (float) denominationUnits) / (float) denominationUnits;
+        return (float) (d * (float) denominationUnits / (float) denominationUnits);
     }
 
     static public Long tryParseLong(String s, Long fallback) {
@@ -372,12 +400,12 @@ public class Tools {
         }
     }
 
-    static public String getReadableHashRateString(long hashrate) {
-        BigDecimal bn = new BigDecimal(hashrate);
+    static public String getReadableDifficultyString(long difficulty) {
+        BigDecimal bn = new BigDecimal(difficulty);
         BigDecimal bnThousand = new BigDecimal(1000);
 
         int i = 0;
-        String[] byteUnits = {"H", "KH", "MH", "GH", "TH", "PH"};
+        String[] byteUnits = {"", "k", "M", "G", "T", "P"};
 
         while (bn.compareTo(bnThousand) > 0) {
             bn = bn.divide(bnThousand);
@@ -387,5 +415,40 @@ public class Tools {
         DecimalFormat decimalFormat = new DecimalFormat("0.##");
 
         return decimalFormat.format(bn) + ' ' + byteUnits[i];
+    }
+
+    static public String getLongValueString(double value) {
+        NumberFormat nf = NumberFormat.getInstance();
+        nf.setMinimumFractionDigits(2);
+
+        return nf.format(value);
+    }
+
+    static public String getReadableHashRateString(long hashrate) {
+        BigDecimal bn = new BigDecimal(hashrate);
+        BigDecimal bnThousand = new BigDecimal(1000);
+
+        int i = 0;
+        String[] byteUnits = {"H/s", "kH/s", "MH/s", "GH/s", "TH/s", "PH/s"};
+
+        while (bn.compareTo(bnThousand) > 0) {
+            bn = bn.divide(bnThousand);
+            i++;
+        }
+
+        DecimalFormat decimalFormat = new DecimalFormat("0.##");
+
+        return decimalFormat.format(bn) + ' ' + byteUnits[i];
+    }
+
+    static public boolean isURLReachable(String strURL) {
+        try {
+            URL url = new URL(strURL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            return connection.getResponseCode() == 200;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

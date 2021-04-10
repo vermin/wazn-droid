@@ -1,0 +1,22 @@
+{
+  "pools" : [
+    {
+      "key" : "Wazn Official Pool",
+      "pool" : "dig.wazn.io",
+      "port" : "3333",
+      "ports" : ["3333", "4444","5555"],
+      "type"  :  2,
+      "url" : "https://pool.wazn.io",
+      "ip" : "157.90.229.215"
+    },
+    {
+      "key" : "Wazniya Wazn Pool",
+      "pool" : "dig.wazniya.com",
+      "port" : "3003",
+      "ports" : ["3003"],
+      "type"  :  2,
+      "url" : "https://pool.wazniya.com",
+      "ip" : "78.47.140.87"
+    }
+  ]
+}

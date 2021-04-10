@@ -8,3 +8,5 @@ gradle/
 /build
 /captures
 .externalNativeBuild
+
+app/src/main/assets/waznrig/armeabi-v7a/waznrig

@@ -1,0 +1,24 @@
+<p>
+  WAZNDroid is a cryptocurrency miner for all latest Android devices.
+  It is very simple to setup and prevents your device from overheating.
+</p>
+
+<p>Intuitive Interface</p>
+<ul>
+  <li>Notification with real-time hashrate</li>
+  <li>Detailed mining log</li>
+  <li>Pool & Network live statistics</li>
+</ul>
+
+<p>Pool Settings</p>
+<ul>
+  <li>Predefined & custom mining pools</li>
+  <li>Customizable payout widget</li>
+  <li>Custom difficulty</li>
+</ul>
+
+<p>Temperature Control</p>
+<ul>
+  <li>Machine-learning algorithm which prevents overheating</li>
+  <li>CPU & Battery temperature settings</li>
+</ul>

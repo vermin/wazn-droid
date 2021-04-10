@@ -1,3 +1,8 @@
+// Copyright (c) 2020-2021 Project Wazn
+// Copyright (c) 2021 Scala
+//
+// Please see the included LICENSE file for more information.
+
 package io.wazn.androidminer.api;
 
 import java.util.Timer;
@@ -5,16 +10,17 @@ import java.util.TimerTask;
 
 import io.wazn.androidminer.Config;
 
-public class ProviderRequest{
+public class ProviderRequest {
 
     protected PoolItem mPoolItem;
-
     private ProviderTask current;
     private IProviderListener mListener;
+
     public ProviderRequest setListener(IProviderListener listener) {
         if(mListener == listener) {
             return this;
         }
+
         mListener = listener;
 
         PoolItem pi = ProviderManager.getSelectedPool();
@@ -25,16 +31,16 @@ public class ProviderRequest{
         return this;
     }
 
-    public class ProviderTask extends TimerTask{
+    public class ProviderTask extends TimerTask {
 
-        private ProviderAbstract mProvider;
+        private final ProviderAbstract mProvider;
 
         public ProviderTask(ProviderAbstract abs) {
             mProvider = abs;
         }
 
         @Override
-        public void run(){
+        public void run() {
             mProvider.execute();
             repeat();
         }
@@ -52,10 +58,19 @@ public class ProviderRequest{
         }
     }
 
+    public void run() {
+        if(current == null) {
+            return;
+        }
+
+        current.run();
+    }
+
     public void start() {
         if(current != null || mPoolItem == null) {
             return;
         }
+
         ProviderAbstract pa = mPoolItem.getInterface();
         pa.mListener = mListener;
         current = new ProviderTask(pa);
@@ -71,7 +86,7 @@ public class ProviderRequest{
         timer.schedule(current, Config.statsDelay);
     }
 
-    public class ProviderTimer extends Timer {
+    public static class ProviderTimer extends Timer {
         public ProviderTimer() {
             super("ProviderTimer");
         }

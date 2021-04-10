@@ -15,24 +15,21 @@
         android:layout_marginBottom="90dp"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:gravity="start"
-            android:text="@string/settings"
-            android:textColor="@color/txt_headline"
-            android:textStyle="bold"
-            android:textSize="20sp" />
-
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/llNotice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -43,10 +40,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="start"
+                        android:layout_gravity="center_vertical"
                         android:text="@string/walletaddress2"
-                        android:textColor="@color/txt_secondary"
-                        android:textSize="16sp"
+                        android:textColor="@color/txt_headline"
+                        android:textSize="14sp"
+                        android:textAllCaps="true"
                         android:textStyle="bold" />
 
                     <Space
@@ -55,10 +53,10 @@
                         android:layout_weight="1" />
 
                     <Button
-                        android:id="@+id/btnMineuPlexa"
+                        android:id="@+id/btnMineWazn"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:backgroundTint="@android:color/transparent"
+                        app:backgroundTint="@android:color/transparent"
                         android:layout_gravity="center_vertical"
                         app:cornerRadius="5dp"
                         app:icon="@drawable/ic_star"
@@ -92,12 +90,29 @@
                     android:gravity="end">
 
                     <Button
-                        android:id="@+id/btnPasteAddress"
+                        android:id="@+id/btnQrCode"
                         android:layout_width="fill_parent"
                         android:layout_height="50dp"
                         android:layout_marginEnd="5dp"
                         android:layout_weight="1"
-                        android:backgroundTint="@color/bg_lighter"
+                        app:backgroundTint="@color/bg_lighter"
+                        android:text="@string/scanqrcode"
+                        android:textSize="14sp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/txt_button_filled"
+                        app:icon="@drawable/ic_qrcode"
+                        app:iconGravity="textStart"
+                        app:iconSize="18dp"
+                        app:iconTint="@color/btn_icon_default"
+                        app:cornerRadius="5dp"
+                        tools:ignore="ButtonStyle,UnusedAttribute" />
+
+                    <Button
+                        android:id="@+id/btnPasteAddress"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        app:backgroundTint="@color/bg_lighter"
                         android:text="@string/paste"
                         android:textSize="14sp"
                         android:textAllCaps="false"
@@ -114,99 +129,19 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="15dp"
                     android:gravity="start"
                     android:text="@string/pool"
-                    android:textColor="@color/txt_secondary"
-                    android:textSize="16sp"
+                    android:textColor="@color/txt_headline"
+                    android:textSize="14sp"
+                    android:textAllCaps="true"
                     android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:layout_marginStart="0.5dp"
-                android:background="@drawable/spinner_theme"
-                android:orientation="horizontal">
-
-                    <Spinner
-                        android:id="@+id/spinnerPool"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:textColor="@color/txt_main"
-                        android:layout_weight="4"
-                        android:spinnerMode="dropdown"
-                        android:popupBackground="@color/input_bg_default"
-                        android:background="@android:color/transparent"
-                        android:textSize="14sp" />
-
-                <ImageView
-                    android:id="@+id/imgSpinnerDown"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_gravity="center"
-                    android:clickable="true"
-                    app:srcCompat="@drawable/ic_down"
-                    android:focusable="true" />
-
-            </LinearLayout>
-
-                <LinearLayout
+                <io.wazn.androidminer.widgets.PoolView
+                    android:id="@+id/viewPool"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="0"
-                    android:orientation="horizontal"
-                    android:baselineAligned="false">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/poolurlIL"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="3dp"
-                        android:layout_weight="1"
-                        app:errorEnabled="false"
-                        tools:ignore="NestedWeights">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/pool"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/mining_pool_address"
-                            android:inputType="textUri"
-                            android:singleLine="true"
-                            android:textColor="@color/txt_main"
-                            android:textColorHint="@color/txt_inactive"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/portIL"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        app:errorEnabled="false">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/port"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:hint="@string/mining_pool_port"
-                            android:inputType="number"
-                            android:maxLength="6"
-                            android:singleLine="true"
-                            android:textColor="@color/txt_main"
-                            android:textColorHint="@color/txt_inactive"
-                            android:textSize="14sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                </LinearLayout>
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -215,16 +150,15 @@
                     android:layout_marginBottom="5dp"
                     android:gravity="start"
                     android:text="@string/pooloptions"
-                    android:textColor="@color/txt_main"
+                    android:textColor="@color/txt_headline"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/usernameparamsIL"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="5dp"
                     app:errorEnabled="false">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -239,7 +173,6 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/workernameIL"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -257,63 +190,21 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/mininggoalIL"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    app:errorEnabled="false">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/mininggoal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="@string/mininggoalhint"
-                        android:inputType="number"
-                        android:textColor="@color/txt_main"
-                        android:textColorHint="@color/txt_inactive"
-                        android:textSize="14sp" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="15dp"
-                android:layout_weight="0"
-                android:orientation="horizontal">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="15dp"
                     android:gravity="start"
-                    android:text="@string/hardwaresettings"
-                    android:textColor="@color/txt_secondary"
-                    android:textSize="16sp"
+                    android:text="@string/intensity"
+                    android:textColor="@color/txt_headline"
+                    android:textSize="14sp"
+                    android:textAllCaps="true"
                     android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/btnHardwareHelp"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center_vertical"
-                    android:backgroundTint="@android:color/transparent"
-                    app:cornerRadius="5dp"
-                    app:icon="@drawable/ic_help"
-                    app:iconGravity="textStart"
-                    app:iconPadding="0dp"
-                    app:iconTint="@color/txt_secondary"
-                    tools:ignore="UnusedAttribute" />
-
-            </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:layout_weight="0"
                     android:orientation="horizontal">
@@ -365,9 +256,9 @@
                     android:id="@+id/seekbarcores"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:max="8"
+                    android:max="7"
                     android:maxHeight="5dp"
-                    android:min="1"
+                    android:min="0"
                     android:minHeight="5dp"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
@@ -379,8 +270,42 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_weight="0"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="start"
+                        android:text="@string/temperature_control"
+                        android:textColor="@color/txt_headline"
+                        android:textSize="14sp"
+                        android:textAllCaps="true"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/btnTemperatureControlHelp"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical"
+                        app:backgroundTint="@android:color/transparent"
+                        app:cornerRadius="5dp"
+                        app:icon="@drawable/ic_help"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:iconTint="@color/txt_main"
+                        android:visibility="visible"
+                        tools:ignore="UnusedAttribute" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="5dp"
                     android:layout_weight="0"
                     android:orientation="horizontal">
@@ -421,6 +346,7 @@
                         tools:ignore="HardcodedText" />
 
                     <TextView
+                        android:id="@+id/cputempunit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -434,9 +360,9 @@
                     android:id="@+id/seekbarcputemperature"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:max="9"
+                    android:max="4"
                     android:maxHeight="5dp"
-                    android:min="1"
+                    android:min="0"
                     android:minHeight="5dp"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
@@ -490,6 +416,7 @@
                         tools:ignore="HardcodedText" />
 
                     <TextView
+                        android:id="@+id/batterytempunit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -503,9 +430,9 @@
                     android:id="@+id/seekbarbatterytemperature"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:max="5"
+                    android:max="4"
                     android:maxHeight="5dp"
-                    android:min="1"
+                    android:min="0"
                     android:minHeight="5dp"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
@@ -574,9 +501,9 @@
                     android:id="@+id/seekbarcooldownthreshold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:max="5"
+                    android:max="4"
                     android:maxHeight="5dp"
-                    android:min="1"
+                    android:min="0"
                     android:minHeight="5dp"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
@@ -589,62 +516,26 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="2.5dp"
                     android:gravity="start"
-                    android:text="@string/advanced"
-                    android:textColor="@color/txt_secondary"
-                    android:textSize="16sp"
+                    android:text="@string/pooloptions"
+                    android:textColor="@color/txt_headline"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:layout_weight="0"
+                    android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/pauseminingonbattery"
-                        android:textColor="@color/c_grey"
-                        android:textSize="14sp"
-                        android:checked="false"
-                        app:buttonTint="@color/txt_main" />
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        tools:ignore="NestedWeights" />
-
-                    <Switch
-                        android:id="@+id/chkPauseOnBattery"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:theme="@style/SwitchTheme" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_width="fill_parent"
-                    android:layout_height="0.7dp"
-                    android:background="@color/txt_main"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="0"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/keepscreenonwhenmining"
+                        android:text="@string/temperature_unit"
+                        android:layout_gravity="center_vertical"
                         android:textColor="@color/txt_main"
                         android:textSize="14sp"
                         android:checked="false" />
@@ -655,25 +546,43 @@
                         android:layout_weight="1"
                         tools:ignore="NestedWeights" />
 
-                    <Switch
-                        android:id="@+id/chkKeepScreenOnWhenMining"
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                        android:id="@+id/tgTemperatureUnit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:theme="@style/SwitchTheme" />
+                        app:singleSelection="true"
+                        app:checkedButton="@id/btnCelsius">
+
+                        <Button
+                            android:id="@+id/btnCelsius"
+                            android:layout_width="50dp"
+                            android:layout_height="40dp"
+                            android:text="@string/celsius"
+                            style="?attr/materialButtonOutlinedStyle" />
+
+                        <Button
+                            android:id="@+id/btnFarehnheit"
+                            android:layout_width="50dp"
+                            android:layout_height="40dp"
+                            android:text="@string/fahrenheit"
+                            style="?attr/materialButtonOutlinedStyle" />
+
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
 
                 </LinearLayout>
 
                 <View
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:layout_width="fill_parent"
                     android:layout_height="0.7dp"
-                    android:background="@color/txt_main"/>
+                    android:background="@color/txt_inactive"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
                     android:layout_weight="0"
                     android:orientation="horizontal">
 
@@ -689,9 +598,9 @@
                         android:id="@+id/btnAmaycWarning"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:layout_marginStart="25dp"
+                        android:layout_marginStart="10dp"
                         android:layout_gravity="center_vertical"
-                        android:backgroundTint="@android:color/transparent"
+                        app:backgroundTint="@android:color/transparent"
                         app:cornerRadius="5dp"
                         app:icon="@drawable/ic_warning"
                         app:iconGravity="textStart"
@@ -714,11 +623,317 @@
                 </LinearLayout>
 
                 <View
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:layout_width="fill_parent"
                     android:layout_height="0.7dp"
-                    android:background="@color/txt_main"/>
+                    android:background="@color/txt_inactive"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="15dp"
+                    android:gravity="start"
+                    android:text="@string/advanced"
+                    android:textColor="@color/txt_headline"
+                    android:textSize="14sp"
+                    android:textAllCaps="true"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/hashrate_refresh_delay"
+                        android:textColor="@color/c_grey"
+                        android:textSize="14sp"
+                        android:checked="false"
+                        app:buttonTint="@color/txt_main" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        tools:ignore="NestedWeights" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/ivDecreaseRefreshHashrateDelay"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            app:tint="@color/c_blue"
+                            app:srcCompat="@drawable/ic_left" />
+
+                        <TextView
+                            android:id="@+id/tvRefreshHashrateDelay"
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="30"
+                            android:textColor="@color/txt_main"
+                            android:textSize="14sp"
+                            android:checked="false" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="s"
+                            android:textColor="@color/txt_main"
+                            android:textSize="14sp"
+                            android:checked="false" />
+
+                        <ImageView
+                            android:id="@+id/ivIncreaseRefreshHashrateDelay"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            app:tint="@color/c_blue"
+                            app:srcCompat="@drawable/ic_right" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.7dp"
+                    android:background="@color/txt_inactive"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/pauseminingonbattery"
+                        android:textColor="@color/c_grey"
+                        android:textSize="14sp"
+                        android:checked="false"
+                        app:buttonTint="@color/txt_main" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        tools:ignore="NestedWeights" />
+
+                    <Switch
+                        android:id="@+id/chkPauseOnBattery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/SwitchTheme" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.7dp"
+                    android:background="@color/txt_inactive"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/pauseminingonmobile"
+                        android:textColor="@color/c_grey"
+                        android:textSize="14sp"
+                        android:checked="false"
+                        app:buttonTint="@color/txt_main" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        tools:ignore="NestedWeights" />
+
+                    <Switch
+                        android:id="@+id/chkPauseOnNetwork"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/SwitchTheme" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.7dp"
+                    android:background="@color/txt_inactive"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:layout_weight="0"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/keepscreenonwhenmining"
+                        android:textColor="@color/txt_main"
+                        android:textSize="14sp"
+                        android:checked="false" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        tools:ignore="NestedWeights" />
+
+                    <Switch
+                        android:id="@+id/chkKeepScreenOnWhenMining"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/SwitchTheme" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.7dp"
+                    android:background="@color/txt_inactive"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:layout_weight="0"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/send_debug_information"
+                        android:textColor="@color/txt_main"
+                        android:textSize="14sp"
+                        android:checked="false" />
+
+                    <Button
+                        android:id="@+id/btnSendDebugInformationHelp"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical"
+                        app:backgroundTint="@android:color/transparent"
+                        app:cornerRadius="5dp"
+                        app:icon="@drawable/ic_help"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:iconTint="@color/txt_main"
+                        android:visibility="visible"
+                        tools:ignore="UnusedAttribute" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        tools:ignore="NestedWeights" />
+
+                    <Switch
+                        android:id="@+id/chkSendDebugInformation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/SwitchTheme" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.7dp"
+                    android:background="@color/txt_inactive"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:layout_weight="0"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/disable_restart_process"
+                        android:textColor="@color/txt_main"
+                        android:textSize="14sp"
+                        android:checked="false" />
+
+                    <Button
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical"
+                        app:backgroundTint="@android:color/transparent"
+                        app:cornerRadius="5dp"
+                        app:icon="@drawable/ic_help"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:iconTint="@color/txt_main"
+                        android:visibility="visible"
+                        tools:ignore="UnusedAttribute" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        tools:ignore="NestedWeights" />
+
+                    <Switch
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/SwitchTheme" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.7dp"
+                    android:background="@color/txt_inactive"
+                    android:visibility="gone"/>
 
             </LinearLayout>
 

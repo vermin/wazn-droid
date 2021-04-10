@@ -27,7 +27,6 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dip"
@@ -47,7 +46,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="15dp"
                 app:backgroundTint="@color/bg_blue"
-                android:text="@string/ok"
+                android:text="I Agree"
                 android:textSize="14sp"
                 android:textAllCaps="false"
                 android:textColor="@color/txt_button_filled"

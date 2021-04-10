@@ -3,97 +3,195 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/bg_body">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="90dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:gravity="start"
-                android:text="@string/stats"
-                android:textColor="@color/txt_headline"
-                android:textStyle="bold"
-                android:textSize="20sp" />
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:id="@+id/checkstatsonline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:text="@string/checkstatsonline"
-                android:textSize="12sp"
-                android:selectAllOnFocus="false"
-                android:linksClickable="true"
-                android:autoLink="all"
-                android:onClick="onShowCores"
-                android:textColor="@color/c_blue"/>
-
-        </LinearLayout>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="90dp"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:baselineAligned="false">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/corner_radius_gradient_blue"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_marginStart="7.5dp"
+                        android:layout_gravity="center"
+                        app:tint="@color/c_white"
+                        app:srcCompat="@drawable/ic_balance2" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="5dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/balance"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="5dp"
+                                android:gravity="end"
+                                android:text="@string/na"
+                                android:textSize="14sp"
+                                android:textColor="@color/c_white" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/wazn"
+                                android:textColor="@color/c_white"
+                                android:textSize="14sp"
+                                android:textStyle="normal"/>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/balance"
+                            android:textColor="@color/c_white"
+                            android:textSize="14sp"
+                            android:textStyle="bold"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llPayments"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/corner_radius_gradient_green"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_marginStart="7.5dp"
+                        android:layout_gravity="center"
+                        app:tint="@color/c_white"
+                        app:srcCompat="@drawable/ic_wallet" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="5dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/paid"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="5dp"
+                                android:text="@string/na"
+                                android:textSize="14sp"
+                                android:textColor="@color/c_white" />
+
+                            <TextView
+                                android:id="@+id/paid_unit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/wazn"
+                                android:textColor="@color/c_white"
+                                android:textSize="14sp"
+                                android:textStyle="normal"/>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/paid"
+                            android:textColor="@color/c_white"
+                            android:textSize="14sp"
+                            android:textStyle="bold"/>
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="end"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/ivShowPayments"
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:layout_marginEnd="2dp"
+                            android:layout_gravity="center"
+                            app:tint="@color/c_white"
+                            app:srcCompat="@drawable/ic_right" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:padding="10dp"
+                android:background="@drawable/corner_radius_lighter"
                 android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/hashrate"
-                    android:gravity="start"
-                    android:textColor="@color/txt_secondary"
-                    android:layout_marginBottom="5dp"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <ProgressBar
-                    android:id="@+id/progress_device"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="5dp"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginBottom="3dp"
-                    android:max="100"
-                    android:progress="0"
-                    android:progressDrawable="@drawable/progressbar_rounded_yellow">
-                </ProgressBar>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/network"
                     android:gravity="start"
-                    android:textColor="@color/txt_secondary"
+                    android:textColor="@color/txt_headline"
                     android:layout_marginBottom="5dp"
-                    android:textSize="16sp"
+                    android:textAllCaps="true"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <TextView
@@ -120,9 +218,10 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/hashratenetwork_unit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/kh_s"
+                        android:text="@string/mh_s"
                         android:textColor="@color/c_grey"
                         android:textSize="14sp"
                         android:textStyle="bold"/>
@@ -241,53 +340,32 @@
 
                 </LinearLayout>
 
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="5dp"
-                android:visibility="visible"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/pool"
-                    android:gravity="start"
-                    android:textColor="@color/txt_secondary"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-
-                <TextView
-                    android:id="@+id/poolurl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:gravity="end"
-                    android:text="@string/na"
-                    android:textSize="12sp"
-                    android:textColor="@color/txt_inactive"
-                    android:textStyle="italic" />
-
-            </LinearLayout>
+                android:layout_marginBottom="10dp"
+                android:padding="10dp"
+                android:background="@drawable/corner_radius_lighter"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:visibility="visible">
+                    android:layout_marginBottom="5dp"
+                    android:visibility="visible"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/miners"
-                        android:textColor="@color/txt_main"
-                        android:textSize="14sp" />
+                        android:text="@string/pool"
+                        android:gravity="start"
+                        android:textColor="@color/txt_headline"
+                        android:textAllCaps="true"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
                     <Space
                         android:layout_width="0dp"
@@ -295,16 +373,14 @@
                         android:layout_weight="1"/>
 
                     <TextView
-                        android:id="@+id/miners"
+                        android:id="@+id/poolurl"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
                         android:gravity="end"
                         android:text="@string/na"
-                        android:textSize="14sp"
-                        android:textColor="@color/c_green"
-                        android:textStyle="bold" />
-
+                        android:textSize="12sp"
+                        android:textColor="@color/txt_secondary"
+                        android:textStyle="italic" />
 
                 </LinearLayout>
 
@@ -338,6 +414,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/hashratepool_unit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/kh_s"
@@ -346,7 +423,6 @@
                         android:textStyle="bold"/>
 
                 </LinearLayout>
-
 
 
                 <LinearLayout
@@ -358,7 +434,66 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sharesubmitted"
+                        android:text="Miners"
+                        android:textColor="@color/txt_main"
+                        android:textSize="14sp" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:id="@+id/miners"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="@string/na"
+                        android:textSize="14sp"
+                        android:textColor="@color/txt_main" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lastblock"
+                        android:textColor="@color/txt_main"
+                        android:textSize="14sp" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:id="@+id/lastblockpool"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="@string/na"
+                        android:textSize="14sp"
+                        android:textColor="@color/txt_main" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llBlocksPool"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/blocks_found"
                         android:textColor="@color/txt_main"
                         android:textSize="14sp" />
 
@@ -378,10 +513,19 @@
 
                 </LinearLayout>
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:padding="10dp"
+                android:background="@drawable/corner_radius_lighter"
+                android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="horizontal">
 
@@ -390,9 +534,10 @@
                         android:layout_height="wrap_content"
                         android:text="@string/address"
                         android:gravity="start"
-                        android:textColor="@color/txt_secondary"
-                        android:textStyle="bold"
-                        android:textSize="16sp" />
+                        android:textColor="@color/txt_headline"
+                        android:textAllCaps="true"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
                     <Space
                         android:layout_width="0dp"
@@ -403,11 +548,10 @@
                         android:id="@+id/walletaddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
                         android:gravity="end"
                         android:text="@string/na"
                         android:textSize="12sp"
-                        android:textColor="@color/txt_inactive"
+                        android:textColor="@color/txt_secondary"
                         android:textStyle="italic" />
 
                 </LinearLayout>
@@ -441,6 +585,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/hashrateminer_unit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/h_s"
@@ -456,7 +601,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/lastshareminertitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/lastshare"
@@ -485,9 +629,10 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/submittedhash"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sharesubmitted"
+                        android:text="@string/submitted_shares"
                         android:textColor="@color/txt_main"
                         android:textSize="14sp" />
 
@@ -507,97 +652,11 @@
 
                 </LinearLayout>
 
-                <View
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:id="@+id/view1"
-                    android:layout_width="fill_parent"
-                    android:layout_height="0.7dp"
-                    android:background="@color/txt_inactive"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/balance"
-                        android:textColor="@color/txt_main"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"/>
-
-                    <TextView
-                        android:id="@+id/balance"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:gravity="end"
-                        android:text="@string/na"
-                        android:textSize="16sp"
-                        android:textColor="@color/txt_main" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/upx"
-                        android:textColor="@color/txt_main"
-                        android:textSize="16sp"
-                        android:textStyle="bold"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/paid"
-                        android:textColor="@color/txt_main"
-                        android:textStyle="bold"
-                        android:textSize="16sp" />
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"/>
-
-                    <TextView
-                        android:id="@+id/paid"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:gravity="end"
-                        android:text="@string/na"
-                        android:textSize="16sp"
-                        android:textColor="@color/c_green"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/upx"
-                        android:textColor="@color/c_green"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        tools:ignore="TooManyViews" />
-
-                </LinearLayout>
-
             </LinearLayout>
 
-        </ScrollView>
+        </LinearLayout>
 
-    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <RelativeLayout
         android:layout_width="match_parent"

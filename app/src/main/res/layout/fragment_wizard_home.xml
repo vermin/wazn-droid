@@ -26,12 +26,17 @@
 			android:background="@color/bg_body">
 
 			<ImageView
-				android:id="@+id/splashscreen"
-				android:layout_width="200dp"
-				android:layout_height="150dp"
-				android:src="@mipmap/ic_launcher_round"/>
+                android:layout_width="wrap_content"
+				android:layout_height="100dp"
+				android:src="@mipmap/ic_logo_colors"/>
 
-
+			<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:text="MINER"
+				android:gravity="center"
+				android:textSize="30sp"
+				android:textColor="@color/txt_headline"/>
 
 		</LinearLayout>
 
@@ -43,21 +48,19 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_gravity="center"
+			android:gravity="center"
 			android:text="@string/landingpage_headline"
 			android:textColor="@color/txt_headline"
 			android:textStyle="bold"
-			android:textAlignment="center"
 			android:textSize="22sp" />
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_gravity="center"
+			android:gravity="center"
 			android:layout_marginTop="20dp"
 			android:text="@string/landingpage_introduction"
-			android:textColor="@color/txt_secondary"
-			android:textAlignment="center"
+			android:textColor="@color/txt_main"
 			android:textSize="14sp" />
 
 		<Space
@@ -65,12 +68,20 @@
 			android:layout_height="0dp"
 			android:layout_weight="10" />
 
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:layout_marginBottom="10dp"
+			android:text="@string/wazn_address_wizard"
+			android:textColor="@color/txt_main"
+			android:textSize="14sp" />
+
 		<Button
-			android:id="@+id/enterWalletAddress"
-			android:layout_width="match_parent"
+            android:layout_width="match_parent"
 			android:layout_height="55dp"
 			android:layout_gravity="center"
-			android:backgroundTint="@color/bg_blue"
+			app:backgroundTint="@color/bg_blue"
 			android:onClick="onEnterAddress"
 			android:text="@string/enteraddress"
 			android:textSize="14sp"
@@ -79,8 +90,7 @@
 			app:cornerRadius="5dp" />
 
 		<Button
-			android:id="@+id/createWalletAddress"
-			android:layout_width="match_parent"
+            android:layout_width="match_parent"
 			android:layout_height="55dp"
 			android:layout_gravity="center"
 			android:onClick="onCreateWallet"
@@ -104,13 +114,12 @@
 			android:id="@+id/disclaimer"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_gravity="center"
+			android:gravity="center"
 			android:layout_marginBottom="35dp"
 			android:layout_marginStart="35dp"
 			android:layout_marginEnd="35dp"
 			android:text="@string/disclaimer_agreement"
-			android:textColor="@color/txt_main"
-			android:textAlignment="center"
+			android:textColor="@color/txt_inactive"
 			android:textSize="14sp" />
 
 	</RelativeLayout>

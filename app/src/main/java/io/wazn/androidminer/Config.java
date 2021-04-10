@@ -1,32 +1,92 @@
+// Copyright (c) 2019, Mine2Gether.com
+//
+// Please see the included LICENSE file for more information.
+//
+// Copyright (c) 2020-2021 Project Wazn
+// Copyright (c) 2021 Scala
+//
+// Please see the included LICENSE file for more information.
+
 package io.wazn.androidminer;
 
 import android.content.SharedPreferences;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Config {
-    final static String[] SUPPORTED_ARCHITECTURES = {"arm64-v8a", "armeabi-v7a"};
+
+    public final static int STATE_STOPPED = 0;
+    public final static int STATE_MINING = 1;
+    public final static int STATE_PAUSED = 2;
+    public final static int STATE_COOLING = 3;
+    public final static int STATE_CALCULATING = 4;
+
+    public static final int MAX_WORKERNAME_TITLE_CHARS = 25;
+
+    public static final String URL_CHANGELOG_DIRECTORY = "https://raw.githubusercontent.com/wazn-project/wazn-droid/master/fastlane/metadata/android/en-US/changelog/";
+    public static final String URL_RELEASES = "https://github.com/wazn-project/wazn-droid/releases";
+
+    public final static String[] SUPPORTED_ARCHITECTURES = {"arm64-v8a", "armeabi-v7a", "x86_64"};
+
+    public final static String CONFIG_INIT = "init";
+    public final static String CONFIG_USERDEFINED_POOLS = "userdefined_pools";
+    public final static String CONFIG_SELECTED_POOL = "selected_pool";
+    public final static String CONFIG_CORES = "cores";
+    public final static String CONFIG_CUSTOM_PORT = "custom_port";
+    public final static String CONFIG_TEMPERATURE_UNIT = "temperature_unit";
+    public final static String CONFIG_TEMPERATURE_SENSOR_SHOW_WARNING = "temp_sensor_warning";
+    public final static String CONFIG_HASHRATE_REFRESH_DELAY = "hashrate_refresh_delay";
+    public final static String CONFIG_SEND_DEBUG_INFO = "send_debug_info";
+    public final static String CONFIG_ADDRESS = "address";
+    public final static String CONFIG_USERNAME_PARAMETERS = "usernameparameters";
+    public final static String CONFIG_WORKERNAME = "workername";
+    public final static String CONFIG_MAX_CPU_TEMP = "maxcputemp";
+    public final static String CONFIG_MAX_BATTERY_TEMP = "maxbatterytemp";
+    public final static String CONFIG_COOLDOWN_THRESHOLD = "cooldownthreshold";
+    public final static String CONFIG_DISABLE_TEMPERATURE_CONTROL = "disable_temperature_control";
+    public final static String CONFIG_PAUSE_ON_BATTERY = "pauseonbattery";
+    public final static String CONFIG_PAUSE_ON_NETWORK = "pauseonnetwork";
+    public final static String CONFIG_KEEP_SCREEN_ON_WHEN_MINING = "keepscreenonwhenmining";
+    public final static String CONFIG_HIDE_SETUP_WIZARD = "hide_setup_wizard";
+    public final static String CONFIG_CPU_INFO = "cpu_info";
+    public final static String CONFIG_DISCLAIMER_AGREED = "disclaimer_agreed";
+    public final static String CONFIG_POOLS_REPOSITORY_LAST_FETCHED = "pools_respository_last_fetched";
+    public final static String CONFIG_POOLS_REPOSITORY_JSON = "pools_respository_json";
+    public final static String CONFIG_APP_PREVIOUS_VERSION = "app_previous_version";
+
+    public final static int DefaultRefreshDelay = 30; // In seconds
+
+    public final static int CHECK_TEMPERATURE_DELAY = 10000; // In milliseconds
+    public final static int CHECK_MINING_TIME_DELAY = 60000; // In milliseconds
 
     private static Config mSettings;
     private SharedPreferences preferences;
 
-    static final int DefaultPoolIndex = 1;
-    public static final Long statsDelay = 30000L;
-    static final String miner_waznrig = "xmrig";
-    static final String algo = "cryptonight-upxtwo";
+    public final static int DefaultMaxCPUTemp = 70; // 60,65,70,75,80
+    public final static int DefaultMaxBatteryTemp = 40; // 30,35,40,45,50
+    public final static int DefaultCooldownTheshold = 10; // 5,10,15,20,25
 
+    public static final Long statsDelay = 30000L;
+    public static final String miner_waznrig = "waznrig";
+    static final String algo = "randomx/0";
+
+    public static final String CONFIG_KEY_CONFIG_VERSION = "config_version";
     public static final String version = "4";
+
+    public static final String CONFIG_KEY_POOLS_VERSION = "pools_version";
+
     static final Integer logMaxLength = 50000;
     static final Integer logPruneLength = 1000;
 
-    private HashMap<String,String> mConfigs = new HashMap<String, String>();
+    private final HashMap<String,String> mConfigs = new HashMap<>();
 
     static void initialize(SharedPreferences preferences) {
         mSettings = new Config();
         mSettings.preferences = preferences;
     }
 
-    static void write(String key, String value) {
+    public static void write(String key, String value) {
         if(!key.startsWith("system:")) {
             mSettings.preferences.edit().putString(key, value).apply();
         }
@@ -44,12 +104,18 @@ public class Config {
     }
 
     public static String read(String key) {
+        return read(key, "");
+    }
+
+    public static String read(String key, String fallback) {
         if(!key.startsWith("system:")) {
-            return mSettings.preferences.getString(key, "");
+            return mSettings.preferences.getString(key, fallback);
         }
-        if(!mSettings.mConfigs.containsKey(key)) {
-            return "";
+
+        if(!mSettings.mConfigs.containsKey(key) || Objects.requireNonNull(mSettings.mConfigs.get(key)).isEmpty()) {
+            return fallback;
         }
+
         return mSettings.mConfigs.get(key);
     }
 
